@@ -11,6 +11,7 @@ namespace Catalog.Persistence.Database.Configuration
             entityBuilder.Property(x => x.Name).IsRequired().HasMaxLength(100);
             entityBuilder.Property(x => x.Description).IsRequired().HasMaxLength(500);
 
+            //seed; sembramos datos iniciales en bd
             //Product by default
             var products = new List<Product>();
             var random = new Random();
