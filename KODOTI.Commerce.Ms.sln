@@ -101,6 +101,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order.Service.Queries", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order.Service.EventHandlers", "src\Services\Order\Order.Service.EventHandlers\Order.Service.EventHandlers.csproj", "{074FD35F-4924-4273-B886-3B70C16D24E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order.Service.Proxies", "src\Services\Order\Order.Service.Proxies\Order.Service.Proxies.csproj", "{B326EB55-0C24-4CCA-A76E-A00B57F039A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -191,6 +193,10 @@ Global
 		{074FD35F-4924-4273-B886-3B70C16D24E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{074FD35F-4924-4273-B886-3B70C16D24E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{074FD35F-4924-4273-B886-3B70C16D24E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B326EB55-0C24-4CCA-A76E-A00B57F039A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B326EB55-0C24-4CCA-A76E-A00B57F039A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B326EB55-0C24-4CCA-A76E-A00B57F039A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B326EB55-0C24-4CCA-A76E-A00B57F039A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -242,6 +248,7 @@ Global
 		{3FB55788-9747-4DB5-B86A-63BE9CCCD792} = {58EC3348-AFEC-418F-82B5-03FE5FA83C3A}
 		{C17AF28F-898A-402F-850A-5220A81CBEA0} = {3375765C-04F6-4D75-A911-A767A43AACCE}
 		{074FD35F-4924-4273-B886-3B70C16D24E8} = {3375765C-04F6-4D75-A911-A767A43AACCE}
+		{B326EB55-0C24-4CCA-A76E-A00B57F039A0} = {3375765C-04F6-4D75-A911-A767A43AACCE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3009734E-6037-4DCA-A114-346172D0A8FA}
