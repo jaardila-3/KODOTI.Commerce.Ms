@@ -3,6 +3,9 @@ using Microsoft.Extensions.Logging;
 using Order.Domain;
 using Order.Persistence.Database;
 using Order.Service.EventHandlers.Commands;
+using Order.Service.Proxies.Contracts;
+using Order.Service.Proxies.Enums;
+using Order.Service.Proxies.MsCatalog.Commands;
 
 namespace Order.Service.EventHandlers
 {
@@ -10,16 +13,13 @@ namespace Order.Service.EventHandlers
     INotificationHandler<OrderCreateCommand>
     {
         private readonly ApplicationDbContext _context;
-        //private readonly ICatalogProxy _catalogProxy;
+        private readonly ICatalogProxy _catalogProxy;
         private readonly ILogger<OrderCreateEventHandler> _logger;
 
-        public OrderCreateEventHandler(
-            ApplicationDbContext context,
-            //ICatalogProxy catalogProxy,
-            ILogger<OrderCreateEventHandler> logger)
+        public OrderCreateEventHandler( ApplicationDbContext context, ICatalogProxy catalogProxy, ILogger<OrderCreateEventHandler> logger)
         {
             _context = context;
-            //_catalogProxy = catalogProxy;
+            _catalogProxy = catalogProxy;
             _logger = logger;
         }
 
@@ -28,7 +28,7 @@ namespace Order.Service.EventHandlers
             _logger.LogInformation("--- New order creation started");
             var entry = new Domain.Order();
 
-            using (var trx = await _context.Database.BeginTransactionAsync())
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
                 // 01. Prepare detail
                 _logger.LogInformation("--- Preparing detail");
@@ -46,18 +46,27 @@ namespace Order.Service.EventHandlers
                 _logger.LogInformation($"--- Order {entry.OrderId} was created");
 
                 // 04. Update Stocks
+                //aquí se orquesta con el micro servicio de Catalog
                 _logger.LogInformation("--- Updating stock");
-                //await _catalogProxy.UpdateStockAsync(new ProductInStockUpdateStockCommand
-                //{
-                //    Items = notification.Items.Select(x => new ProductInStockUpdateItem
-                //    {
-                //        ProductId = x.ProductId,
-                //        Stock = x.Quantity,
-                //        Action = ProductInStockAction.Substract
-                //    })
-                //});
+                try
+                {
+                    await _catalogProxy.UpdateStockAsync(new ProductInStockUpdateStockCommand
+                    {
+                        Items = notification.Items.Select(x => new ProductInStockUpdateItem
+                        {
+                            ProductId = x.ProductId,
+                            Stock = x.Quantity,
+                            Action = ProductInStockAction.Substract
+                        })
+                    });
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError("NO SE CREO LA ORDEN DEBIDO A LA FALTA DE STOCK");
+                    throw;
+                }                
 
-                await trx.CommitAsync();
+                await transaction.CommitAsync();
             }
 
             _logger.LogInformation("--- New order creation ended");

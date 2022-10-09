@@ -20,9 +20,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(opts =>
 });
 
 // ApiUrls
+//llena la clase con los datos que están en el appsettings.json para pasarla por ioc
 builder.Services.Configure<ApiUrls>(opts => builder.Configuration.GetSection("ApiUrls").Bind(opts));
 
 // Proxies
+//inyecta el HttpClient por IoC
 builder.Services.AddHttpClient<ICatalogProxy, CatalogProxy>();
 
 // Event handlers
