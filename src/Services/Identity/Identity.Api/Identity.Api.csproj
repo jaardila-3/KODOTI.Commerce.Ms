@@ -18,9 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Order.Service.EventHandlers\Order.Service.EventHandlers.csproj" />
-    <ProjectReference Include="..\Order.Service.Proxies\Order.Service.Proxies.csproj" />
-    <ProjectReference Include="..\Order.Service.Queries\Order.Service.Queries.csproj" />
+    <ProjectReference Include="..\Identity.Service.EventHandlers\Identity.Service.EventHandlers.csproj" />
+    <ProjectReference Include="..\Identity.Service.Queries\Identity.Service.Queries.csproj" />
   </ItemGroup>
 
 </Project>

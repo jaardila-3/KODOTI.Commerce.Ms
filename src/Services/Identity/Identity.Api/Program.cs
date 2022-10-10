@@ -1,14 +1,13 @@
+using Identity.Domain;
+using Identity.Persistence.Database;
+using Identity.Service.Queries;
+using Identity.Service.Queries.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Order.Persistence.Database;
-using Order.Service.Proxies;
-using Order.Service.Proxies.Contracts;
-using Order.Service.Proxies.MsCatalog;
-using Order.Service.Queries;
-using Order.Service.Queries.Contracts;
 using System.Reflection;
 using System.Text;
 
@@ -20,26 +19,33 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(opts =>
 {
     opts.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionSqlServer"),
-        x => x.MigrationsHistoryTable("__EFMigrationsHistory", "Order"));
+        x => x.MigrationsHistoryTable("__EFMigrationsHistory", "Identity"));
 });
 
-// ApiUrls
-//llena la clase con los datos que están en el appsettings.json para pasarla por ioc
-builder.Services.Configure<ApiUrls>(opts => builder.Configuration.GetSection("ApiUrls").Bind(opts));
+// Identity
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
-// Proxies
-//inyecta el HttpClient por IoC
-builder.Services.AddHttpClient<ICatalogProxy, CatalogProxy>();
+// Identity configuration: se configura el password para que sea mas flexible las validaciones
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 1;
+});
 
-// Event handlers
 //cargamos todo el assembly donde están los command para que el mediador los identifique automáticamente
-builder.Services.AddMediatR(Assembly.Load("Order.Service.EventHandlers"));
+builder.Services.AddMediatR(Assembly.Load("Identity.Service.EventHandlers"));
 
-// Query services
 //IoC
-builder.Services.AddTransient<IOrderQueryService, OrderQueryService>();
+builder.Services.AddTransient<IUserQueryService, UserQueryService>();
 
 builder.Services.AddControllers();
+
 
 // Add Authentication
 var secretKey = Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("SecretKey"));
@@ -62,7 +68,7 @@ builder.Services.AddEndpointsApiExplorer();
 //configurar swagger para que reciba token Bearer
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Order.Api", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity.Api", Version = "v1" });
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Name = "Authorization",

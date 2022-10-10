@@ -2,11 +2,15 @@
 using Catalog.Service.Queries.Contracts;
 using Catalog.Service.Queries.DTOs;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Common.Collection;
+using System.Security.Claims;
 
 namespace Catalog.Api.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("v1/products")]
     public class ProductController : ControllerBase
@@ -24,6 +28,10 @@ namespace Catalog.Api.Controllers
         [HttpGet]
         public async Task<DataCollection<ProductDto>> GetAll(int page = 1, int take = 10, string? ids = null)
         {
+            //para recuperar los claims que vienen del token
+            var id = User.Claims.Single(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
+            //****************************
+
             IEnumerable<int>? products = null;
             if (!string.IsNullOrEmpty(ids))
             {
@@ -44,7 +52,7 @@ namespace Catalog.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductCreateCommand command)
         {
-            await _mediator.Publish(command);
+            await _mediator.Publish(command); //Publish es de tipo void
             return Ok();
         }
     }
