@@ -23,6 +23,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(opts =>
         x => x.MigrationsHistoryTable("__EFMigrationsHistory", "Order"));
 });
 
+// HttpContextAccessor
+builder.Services.AddHttpContextAccessor();
+
 // ApiUrls
 //llena la clase con los datos que están en el appsettings.json para pasarla por ioc
 builder.Services.Configure<ApiUrls>(opts => builder.Configuration.GetSection("ApiUrls").Bind(opts));

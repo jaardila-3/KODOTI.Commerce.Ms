@@ -16,9 +16,13 @@ namespace Order.Service.Proxies.MsCatalog
         /// </summary>
         /// <param name="httpClient"></param>
         /// <param name="apiUrls"></param>
-        public CatalogProxy(HttpClient httpClient, IOptions<ApiUrls> apiUrls/*, IHttpContextAccessor httpContextAccessor*/)
+        /// <param name="httpContextAccessor"></param> interfaz que me ayuda a interceptar
+        /// los request que se están realizando en el proyecto y viene el contexto del token
+        /// se debe habilitar el Middleware Services.AddHttpContextAccessor en program del API
+        public CatalogProxy(HttpClient httpClient, IOptions<ApiUrls> apiUrls, IHttpContextAccessor httpContextAccessor)
         {
-            //httpClient.AddBearerToken(httpContextAccessor);
+            //AddBearerToken es método de extension que me recibe el httpClient y el contexto del httpContextAccessor
+            httpClient.AddBearerToken(httpContextAccessor);
             _httpClient = httpClient;
             _apiUrls = apiUrls.Value;
         }
