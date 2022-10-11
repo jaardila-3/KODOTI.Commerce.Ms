@@ -2,6 +2,9 @@
 
 namespace Order.Service.Proxies
 {
+    /// <summary>
+    /// Clase que genera método de extension para adicionar token bearer al cliente http
+    /// </summary>
     public static class HttpClientTokenExtension
     {
         /// <summary>

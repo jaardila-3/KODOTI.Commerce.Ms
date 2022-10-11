@@ -8,15 +8,21 @@ using System.Text.Json;
 
 namespace Api.Gateway.Proxies
 {
+    /// <summary>
+    /// clase que implementa las llamadas a los endpoints del Ms Catalog
+    /// </summary>
     public class CatalogProxy : ICatalogProxy
     {
         private readonly ApiUrls _apiUrls;
         private readonly HttpClient _httpClient;
 
-        public CatalogProxy(
-            HttpClient httpClient,
-            IOptions<ApiUrls> apiUrls,
-            IHttpContextAccessor httpContextAccessor)
+        /// <summary>
+        /// Constructor que recibe por IoC las variables necesarias para utilizar el proxy
+        /// </summary>
+        /// <param name="httpClient"></param> cliente http
+        /// <param name="apiUrls"></param> IOptions lee los valores del appsettings que llena esta variable con las url de los ms
+        /// <param name="httpContextAccessor"></param> intercepta las peticiones http
+        public CatalogProxy(HttpClient httpClient, IOptions<ApiUrls> apiUrls, IHttpContextAccessor httpContextAccessor)
         {
             httpClient.AddBearerToken(httpContextAccessor);
 

@@ -1,5 +1,8 @@
 ﻿namespace Api.Gateway.Models.MsCatalog.DTOs
 {
+    /// <summary>
+    /// Dto utilizado para el Micro servicio de Catalogo
+    /// </summary>
     public class ProductDto
     {
         public int ProductId { get; set; }

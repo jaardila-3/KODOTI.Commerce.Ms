@@ -14,9 +14,7 @@ namespace Api.Gateway.WebClient.Controllers
     {
         private readonly ICatalogProxy _catalogProxy;
 
-        public ProductController(
-            ICatalogProxy catalogProxy
-        )
+        public ProductController(ICatalogProxy catalogProxy)
         {
             _catalogProxy = catalogProxy;
         }

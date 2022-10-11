@@ -14,9 +14,7 @@ namespace Api.Gateway.WebClient.Controllers
     {
         private readonly ICustomerProxy _customerProxy;
 
-        public ClientController(
-            ICustomerProxy customerProxy
-        )
+        public ClientController(ICustomerProxy customerProxy)
         {
             _customerProxy = customerProxy;
         }

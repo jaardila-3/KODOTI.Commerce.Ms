@@ -2,6 +2,9 @@
 
 namespace Api.Gateway.Models.MsOrder.Commands
 {
+    /// <summary>
+    /// Comando que se le envía al Ms Order OrderController en el método Create parámetro OrderCreateCommand
+    /// </summary>
     public class OrderCreateCommand
     {
         public OrderPayment PaymentType { get; set; }

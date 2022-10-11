@@ -1,5 +1,9 @@
 ﻿namespace Api.Gateway.Models
 {
+    /// <summary>
+    /// clase utilizada para la paginación de los datos
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class DataCollection<T>
     {
         public bool HasItems { get; set; }

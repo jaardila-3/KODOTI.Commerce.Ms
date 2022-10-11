@@ -17,11 +17,7 @@ namespace Api.Gateway.WebClient.Controllers
         private readonly ICustomerProxy _customerProxy;
         private readonly ICatalogProxy _catalogProxy;
 
-        public OrderController(
-            IOrderProxy orderProxy,
-            ICustomerProxy customerProxy,
-            ICatalogProxy catalogProxy
-        )
+        public OrderController(IOrderProxy orderProxy, ICustomerProxy customerProxy, ICatalogProxy catalogProxy)
         {
             _orderProxy = orderProxy;
             _customerProxy = customerProxy;
@@ -84,6 +80,11 @@ namespace Api.Gateway.WebClient.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Método que realiza una llamada http al Ms Order
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Create(OrderCreateCommand command)
         {
