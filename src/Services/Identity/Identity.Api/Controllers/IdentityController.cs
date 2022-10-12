@@ -24,6 +24,11 @@ namespace Identity.Api.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// método que crea un usuario en la base de datos
+        /// </summary>
+        /// <param name="command"></param> modelo de los datos
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Create(UserCreateCommand command)
         {
@@ -42,6 +47,11 @@ namespace Identity.Api.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Método que genera el token tipo Bearer
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost("authentication")]
         public async Task<IActionResult> Authentication(UserLoginCommand command)
         {
