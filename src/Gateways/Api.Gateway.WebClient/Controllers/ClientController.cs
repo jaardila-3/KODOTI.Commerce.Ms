@@ -20,7 +20,7 @@ namespace Api.Gateway.WebClient.Controllers
         }
 
         [HttpGet]
-        public async Task<DataCollection<ClientDto>> GetAll(int page, int take)
+        public async Task<DataCollection<ClientDto>> GetAll(int page = 1, int take = 10)
         {
             return await _customerProxy.GetAllAsync(page, take);
         }

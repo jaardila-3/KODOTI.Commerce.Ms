@@ -33,8 +33,9 @@ namespace Api.Gateway.WebClient.Controllers
         /// <returns></returns>
         [HttpGet]
 
-        public async Task<DataCollection<OrderDto>> GetAll(int page, int take)
+        public async Task<DataCollection<OrderDto>> GetAll(int page = 1, int take = 10)
         {
+            //Retrieve all data order
             var result = await _orderProxy.GetAllAsync(page, take);
 
             if (result.HasItems)
@@ -45,8 +46,10 @@ namespace Api.Gateway.WebClient.Controllers
                     .GroupBy(g => g)
                     .Select(x => x.Key).ToList();
 
+                //Retrieve all data customer
                 var clients = await _customerProxy.GetAllAsync(1, clientIds.Count(), clientIds);
 
+                //get data for each order in the property client
                 foreach (var order in result.Items)
                 {
                     order.Client = clients.Items.Single(x => x.ClientId == order.ClientId);
@@ -56,9 +59,15 @@ namespace Api.Gateway.WebClient.Controllers
             return result;
         }
 
+        /// <summary>
+        /// This method retrieve the orders and add client and product details
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<OrderDto> Get(int id)
         {
+            //Retrieve order
             var result = await _orderProxy.GetAsync(id);
 
             // Retrieve client
@@ -70,8 +79,10 @@ namespace Api.Gateway.WebClient.Controllers
                 .GroupBy(g => g)
                 .Select(x => x.Key).ToList();
 
+            //Retrieve all products
             var products = await _catalogProxy.GetAllAsync(1, productIds.Count(), productIds);
 
+            //get data for each order in the property Product
             foreach (var item in result.Items)
             {
                 item.Product = products.Items.Single(x => x.ProductId == item.ProductId);

@@ -30,6 +30,13 @@ namespace Api.Gateway.Proxies
             _apiUrls = apiUrls.Value;
         }
 
+        /// <summary>
+        /// Retrieve All data customers
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="take"></param>
+        /// <param name="clients"></param>
+        /// <returns></returns>
         public async Task<DataCollection<ClientDto>> GetAllAsync(int page, int take, IEnumerable<int> clients = null)
         {
             var ids = string.Join(',', clients ?? new List<int>());

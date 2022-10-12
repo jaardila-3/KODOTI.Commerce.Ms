@@ -20,7 +20,7 @@ namespace Api.Gateway.WebClient.Controllers
         }
 
         [HttpGet]
-        public async Task<DataCollection<ProductDto>> GetAll(int page, int take)
+        public async Task<DataCollection<ProductDto>> GetAll(int page = 1, int take = 10)
         {
             return await _catalogProxy.GetAllAsync(page, take);
         }

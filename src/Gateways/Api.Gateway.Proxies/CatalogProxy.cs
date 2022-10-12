@@ -30,8 +30,16 @@ namespace Api.Gateway.Proxies
             _apiUrls = apiUrls.Value;
         }
 
+        /// <summary>
+        /// Retrieve all products 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="take"></param>
+        /// <param name="clients"></param>
+        /// <returns></returns>
         public async Task<DataCollection<ProductDto>> GetAllAsync(int page, int take, IEnumerable<int> clients = null)
         {
+            //convierto los id de clients en string separado por comas porque así lo recibe el ms catalog
             var ids = string.Join(',', clients ?? new List<int>());
 
             var request = await _httpClient.GetAsync($"{_apiUrls.CatalogUrl}v1/products?page={page}&take={take}&ids={ids}");
