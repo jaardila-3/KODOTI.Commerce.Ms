@@ -121,9 +121,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Gateway.Models", "src\G
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Gateway.Proxies", "src\Gateways\Api.Gateway.Proxies\Api.Gateway.Proxies.csproj", "{11DDBDA7-EA16-4FDE-8533-BA5E72EBD0E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clients.Authentication", "src\Clients\Clients.Authentication\Clients.Authentication.csproj", "{F1C0D83C-3111-4618-A164-94C976B5DABC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clients.Authentication", "src\Clients\Clients.Authentication\Clients.Authentication.csproj", "{F1C0D83C-3111-4618-A164-94C976B5DABC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clients.WebClient", "src\Clients\Clients.WebClient\Clients.WebClient.csproj", "{60D10338-1C58-41AC-8B56-8483AFCAF371}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clients.WebClient", "src\Clients\Clients.WebClient\Clients.WebClient.csproj", "{60D10338-1C58-41AC-8B56-8483AFCAF371}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,53 @@
+﻿@page
+@model Clients.WebClient.Pages.Orders.IndexModel
+@{
+}
+
+<div class="text-center">
+    <h1 class="display-4">Órdenes</h1>
+    <p>Todas las órdenes que ha registrado en el sistema</p>
+</div>
+
+<div class="text-center mt-4 mb-4">
+    <a asp-page="/Orders/Create" class="btn btn-primary text-light btn-lg">Crear nueva orden</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th># Orden</th>
+            <th style="width:250px;">Cliente</th>
+            <th style="width:140px;">Tipo de pago</th>
+            <th style="width:100px;">Estado</th>
+            <th style="width:140px;" class="text-right">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Orders.Items)
+        {
+            <tr>
+                <td>
+                    <a href="~/orders/@item.OrderId">@item.OrderNumber</a>
+                </td>
+                <td>@item.Client.Name</td>
+                <td>@item.PaymentType</td>
+                <td>@item.Status</td>
+                <td class="text-right">@item.Total</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.Orders.Pages > 1)
+{
+    <nav>
+        <ul class="pagination justify-content-center">
+            @for (var index = 1; index <= Model.Orders.Pages; index++)
+            {
+                <li class="page-item @(index == Model.Orders.Page ? "active" : "")">
+                    <a class="page-link" asp-page="/Orders/Index" asp-route-currentpage="@index">@index</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
