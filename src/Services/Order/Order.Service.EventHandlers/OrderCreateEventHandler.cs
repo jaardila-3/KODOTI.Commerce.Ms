@@ -9,8 +9,7 @@ using Order.Service.Proxies.MsCatalog.Commands;
 
 namespace Order.Service.EventHandlers
 {
-    public class OrderCreateEventHandler :
-    INotificationHandler<OrderCreateCommand>
+    public class OrderCreateEventHandler : INotificationHandler<OrderCreateCommand>
     {
         private readonly ApplicationDbContext _context;
         private readonly ICatalogProxy _catalogProxy;

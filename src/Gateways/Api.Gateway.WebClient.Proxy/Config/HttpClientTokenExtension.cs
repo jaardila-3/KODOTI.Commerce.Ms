@@ -8,7 +8,9 @@ namespace Api.Gateway.WebClient.Proxy.Config
     public static class HttpClientTokenExtension
     {
         /// <summary>
-        /// Método de extensión que se aplicará al httpClient de CatalogProxy para llevar el token al otro Ms
+        /// Método de extensión llamado por los diferentes proxy de este proyecto
+        /// y que se aplicará al httpClient para llevar el access_token generado en el cliente
+        /// hacia el Api.Gateway.WebClient
         /// </summary>
         /// <param name="client"></param>
         /// <param name="context"></param>
