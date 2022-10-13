@@ -7,7 +7,7 @@
     <h1 class="display-4">Órdenes</h1>
     <p>Todas las órdenes que ha registrado en el sistema</p>
 </div>
-
+@*link para crear nueva orden*@
 <div class="text-center mt-4 mb-4">
     <a asp-page="/Orders/Create" class="btn btn-primary text-light btn-lg">Crear nueva orden</a>
 </div>
@@ -26,8 +26,9 @@
         @foreach (var item in Model.Orders.Items)
         {
             <tr>
-                <td>
-                    <a href="~/orders/@item.OrderId">@item.OrderNumber</a>
+                @*link para ver los detalles de la orden*@
+                <td>                    
+                    <a href="@Url.Page("/Orders/Detail", new {id = item.OrderId})">@item.OrderNumber</a>
                 </td>
                 <td>@item.Client.Name</td>
                 <td>@item.PaymentType</td>
