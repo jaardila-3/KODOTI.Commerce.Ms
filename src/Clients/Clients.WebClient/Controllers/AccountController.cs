@@ -61,7 +61,7 @@ namespace Clients.WebClient.Controllers
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             //vencimiento de las cookies
-            var authProperties = new AuthenticationProperties { IssuedUtc = DateTime.UtcNow.AddHours(10) };
+            var authProperties = new AuthenticationProperties { ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10) };
 
             //me autentico en el sistema
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
